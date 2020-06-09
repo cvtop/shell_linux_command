@@ -3,6 +3,7 @@
 
 cfg=hosts
 
+###### get the docker container info in format, such as ID,Name,Command,CreateTime,Status,Ports,Size
 cat $cfg | grep -vE '^$|#' | while read ip hn
 do
         ssh -n $ip "docker ps -a --format '{{.ID}}| {{.Names}}| {{.Command}}| {{.CreatedAt}} | {{.Status}} | {{.Ports}} | {{.Size}}' || echo no_docker" |awk '{printf"%s|%s\n",h,$0}' h=$hn
